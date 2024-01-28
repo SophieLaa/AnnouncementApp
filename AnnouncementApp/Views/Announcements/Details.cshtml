@@ -1,0 +1,25 @@
+﻿@model AnnouncementApp.Models.Announcement
+
+@{
+    ViewData["Title"] = "Announcement Details";
+}
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h2>@Model.Title</h2>
+            <img src="@Model.PictureURL" class="img-fluid mb-3" alt="@Model.Title">
+            <p>@Model.Description</p>
+            <p>Phone Number: @Model.PhoneNumber</p>
+
+            <a href="@Url.Action("Index", "Announcements")" class="btn btn-primary">Back to List</a>
+
+            <!-- Add buttons to navigate to Edit, Delete, and Create pages -->
+            <div class="mt-3">
+                <a href="@Url.Action("Edit", "Announcements", new { id = Model.Id })" class="btn btn-warning">Edit Announcement</a>
+                <a href="@Url.Action("Delete", "Announcements", new { id = Model.Id })" class="btn btn-danger">Delete Announcement</a>
+                <a href="@Url.Action("Create", "Announcements")" class="btn btn-success">Create New Announcement</a>
+            </div>
+        </div>
+    </div>
+</div>

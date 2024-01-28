@@ -9,6 +9,6 @@ namespace AnnouncementApp.Data
         {
 
         }
-        public DbSet<Announcement> Actors { get; set; }
+        public DbSet<Announcement> Announcements { get; set; }
     }
 }

@@ -15,22 +15,22 @@ namespace AnnouncementApp.Data
 
 
 
-                if (!context.Actors.Any())
+                if (!context.Announcements.Any())
                 {
-                    context.Actors.AddRange(new List<Announcement>()
+                    context.Announcements.AddRange(new List<Announcement>()
                     {
                         new Announcement()
                         {
                             Title = "Anouns 1",
                             Description = "This is the Bio of the first one",
-                            PictureURL = "http://dotnethow.net/images/actors/actor-1.jpeg",
+                            PictureURL = "https://images.examples.com/wp-content/uploads/2018/06/Standard-Meeting-Announcement.jpg",
                             PhoneNumber = "555888888"
                         },
                         new Announcement()
                         {
                             Title = "Anouns 2",
                             Description = "This is the Bio of the next",
-                            PictureURL = "http://dotnethow.net/images/actors/actor-2.jpeg",
+                            PictureURL = "https://c8.alamy.com/comp/R7YDR4/marketing-megaphone-announcement-promo-promotion-infographics-template-for-website-and-presentation-line-gray-icon-with-orange-infographic-style-R7YDR4.jpg",
                             PhoneNumber = "555888888"
 
                         },
@@ -38,7 +38,7 @@ namespace AnnouncementApp.Data
                         {
                             Title = "Anouns 3",
                             Description = "This is the Bio of the next",
-                            PictureURL = "http://dotnethow.net/images/actors/actor-3.jpeg",
+                            PictureURL = "https://www.aplustopper.com/wp-content/uploads/2021/03/Sales-Announcement-Letters.png",
                             PhoneNumber = "555888888"
 
                         },
@@ -46,14 +46,14 @@ namespace AnnouncementApp.Data
                         {
                            Title = "Anouns 4",
                             Description = "This is the Bio of the next",
-                            PictureURL = "http://dotnethow.net/images/actors/actor-3.jpeg",
+                            PictureURL = "https://marketplace.canva.com/EADan2tY9ls/2/0/1143w/canva-orange-agency-job-vacancy-announcement-Ym3ERvvTg2k.jpg",
                             PhoneNumber = "555888888"
                         },
                         new Announcement()
                         {
                             Title = "Anouns 5",
                             Description = "This is the Bio of the next",
-                            PictureURL = "http://dotnethow.net/images/actors/actor-3.jpeg",
+                            PictureURL = "https://i.pinimg.com/originals/b0/6c/8f/b06c8f08837f13e379cdf52481cafa12.jpg",
                             PhoneNumber = "555888888"
                          }
                      });
