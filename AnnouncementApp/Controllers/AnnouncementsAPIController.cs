@@ -38,14 +38,7 @@ namespace AnnouncementApp.Controllers
             return Ok(announcement);
         }
 
-        //[HttpPost]
-        //public async Task<ActionResult<Announcement>> CreateAnnouncement(Announcement announcement)
-        //{
-        //    _context.Announcements.Add(announcement);
-        //    await _context.SaveChangesAsync();
-
-        //    return CreatedAtAction(nameof(GetAnnouncement), new { id = announcement.Id }, announcement);
-        //}
+       
         [HttpPost]
         public async Task<ActionResult<Announcement>> CreateAnnouncement(Announcement announcement)
         {

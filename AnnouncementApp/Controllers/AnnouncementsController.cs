@@ -20,14 +20,13 @@ namespace AnnouncementApp.Controllers
             _httpClientFactory = httpClientFactory;
         }
 
-        // GET: Announcements
         public IActionResult Index()
         {
             var data = _context.Announcements.ToList();
             return View(data);
         }
 
-        // GET: Announcements/Details/5
+     
         public IActionResult Details(int id)
         {
             var announcement = _context.Announcements.FirstOrDefault(a => a.Id == id);
@@ -40,104 +39,61 @@ namespace AnnouncementApp.Controllers
             return View(announcement);
         }
 
-        // GET: Announcements/Create
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
-
-        //// POST: Announcements/Create
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Title,Description,PictureURL,PhoneNumber")] Announcement announcement)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(announcement);
-        //       // _context.SaveChanges();
-        //        await _context.SaveChangesAsync();
-
-
-        //        // Use the Web API to create the same announcement
-        //        var httpClient = _httpClientFactory.CreateClient("AnnouncementAppAPI");
-
-        //        try
-        //        {
-        //            var response = await httpClient.PostAsJsonAsync("api/AnnouncementsAPI", announcement);
-
-        //            if (response.IsSuccessStatusCode)
-        //            {
-        //                // Successfully created in the Web API, redirect to Index
-        //                return RedirectToAction(nameof(Index));
-        //            }
-        //            else
-        //            {
-        //                // Log or handle the failure from the Web API
-        //                ViewBag.ErrorMessage = "Error creating announcement in the Web API";
-        //                return View("Error");
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            // Log or handle the exception
-        //            ViewBag.ErrorMessage = "Error creating announcement in the Web API: " + ex.Message;
-        //            return View("Error");
-        //        }
-        //    }
-        //    return View(announcement);
-        //}
-
-
-        // GET: Announcements/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: Announcements/Create
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Title,Description,PictureURL,PhoneNumber")] Announcement announcement)
         {
-            if (ModelState.IsValid)
+            try
             {
-                // Add to local database
-                _context.Announcements.Add(announcement);
-                await _context.SaveChangesAsync();
-
-                // Use the Web API to create the same announcement
-                var httpClient = _httpClientFactory.CreateClient("AnnouncementAppAPI");
-
-                try
+                if (ModelState.IsValid)
                 {
-                    // Post to Web API
-                    var response = await httpClient.PostAsJsonAsync("api/AnnouncementsAPI", announcement);
+                   
+                    _context.Announcements.Add(announcement);
+                    await _context.SaveChangesAsync();
 
-                    if (response.IsSuccessStatusCode)
+                  
+                    var httpClient = _httpClientFactory.CreateClient("AnnouncementAppAPI");
+
+                    try
                     {
-                        // Successfully created in the Web API, redirect to Index
-                        return RedirectToAction(nameof(Index));
+                      
+                        var response = await httpClient.PostAsJsonAsync("api/AnnouncementsAPI", announcement);
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                           
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            
+                            ViewBag.ErrorMessage = $"Error creating announcement in the Web API. Status code: {response.StatusCode}";
+                            return View("Error");
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // Log or handle the failure from the Web API
-                        ViewBag.ErrorMessage = "Error creating announcement in the Web API";
+                        ViewBag.ErrorMessage = $"Error creating announcement in the Web API: {ex.Message}";
                         return View("Error");
                     }
                 }
-                catch (Exception ex)
-                {
-                    // Log or handle the exception
-                    ViewBag.ErrorMessage = "Error creating announcement in the Web API: " + ex.Message;
-                    return View("Error");
-                }
+                return View(announcement);
             }
-
-            return View(announcement);
+            catch (Exception ex)
+            {
+               
+                ViewBag.ErrorMessage = $"Error creating announcement: {ex.Message}";
+                return View("Error");
+            }
         }
 
-
-        // GET: Announcements/Edit/5
         public IActionResult Edit(int id)
         {
             var announcement = _context.Announcements.FirstOrDefault(a => a.Id == id);
@@ -150,7 +106,7 @@ namespace AnnouncementApp.Controllers
             return View(announcement);
         }
 
-        // POST: Announcements/Edit/5
+       
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,PictureURL,PhoneNumber")] Announcement updatedAnnouncement)
@@ -178,7 +134,7 @@ namespace AnnouncementApp.Controllers
 
                     _context.SaveChanges();
 
-                    // Use the Web API to update the same announcement
+                  
                     var httpClient = _httpClientFactory.CreateClient("AnnouncementAppAPI");
 
                     try
@@ -187,14 +143,12 @@ namespace AnnouncementApp.Controllers
 
                         if (!response.IsSuccessStatusCode)
                         {
-                            // Log or handle the failure from the Web API
                             ViewBag.ErrorMessage = "Error updating announcement in the Web API";
                             return View("Error");
                         }
                     }
                     catch (Exception ex)
                     {
-                        // Log or handle the exception
                         ViewBag.ErrorMessage = "Error updating announcement in the Web API: " + ex.Message;
                         return View("Error");
                     }
@@ -211,7 +165,7 @@ namespace AnnouncementApp.Controllers
             return View(updatedAnnouncement);
         }
 
-        // GET: Announcements/Delete/5
+      
         public IActionResult Delete(int id)
         {
             var announcement = _context.Announcements.FirstOrDefault(a => a.Id == id);
@@ -224,7 +178,7 @@ namespace AnnouncementApp.Controllers
             return View(announcement);
         }
 
-        // POST: Announcements/Delete/5
+       
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
@@ -241,7 +195,7 @@ namespace AnnouncementApp.Controllers
                 _context.Announcements.Remove(announcement);
                 _context.SaveChanges();
 
-                // Use the Web API to delete the same announcement
+                
                 var httpClient = _httpClientFactory.CreateClient("AnnouncementAppAPI");
 
                 try
@@ -250,14 +204,13 @@ namespace AnnouncementApp.Controllers
 
                     if (!response.IsSuccessStatusCode)
                     {
-                        // Log or handle the failure from the Web API
+                       
                         ViewBag.ErrorMessage = "Error deleting announcement in the Web API";
                         return View("Error");
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log or handle the exception
                     ViewBag.ErrorMessage = "Error deleting announcement in the Web API: " + ex.Message;
                     return View("Error");
                 }
@@ -280,5 +233,17 @@ namespace AnnouncementApp.Controllers
         {
             return View();
         }
+        public IActionResult Search(string searchString)
+        {
+            searchString = searchString?.ToLower();
+
+            var announcements = _context.Announcements
+                .Where(a => a.Title.ToLower().Contains(searchString) || a.Description.ToLower().Contains(searchString))
+                .ToList();
+
+            return View("Index", announcements);
+        }
+
+
     }
 }

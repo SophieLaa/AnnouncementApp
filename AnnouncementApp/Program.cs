@@ -15,7 +15,7 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 
 builder.Services.AddHttpClient("AnnouncementAppAPI", client =>
 {
-    client.BaseAddress = new Uri("https://localhost:7013/"); // Adjust the API base address
+    client.BaseAddress = new Uri("https://localhost:7013/");
 });
 
 var app = builder.Build();
